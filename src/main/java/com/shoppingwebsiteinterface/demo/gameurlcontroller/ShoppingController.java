@@ -36,6 +36,13 @@ public class ShoppingController {
         return "Explore";
     }
 
+
+
+    @GetMapping("/login")
+    public String login() {
+        return "Login";
+    }
+
     @PostMapping("/gameinfo")
     public ResponseEntity<String> gameinfo(@RequestBody GameInfoDto partialGameInfoDto, HttpSession session){
         GameInfoDto completedGameInfoDto = rawgCallService.getGameInfoDto(partialGameInfoDto);
