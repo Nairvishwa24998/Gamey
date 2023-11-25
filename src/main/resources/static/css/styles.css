@@ -1,0 +1,8 @@
+body{
+    background: #e9e9e8  no-repeat center 60% fixed;
+    background-size: contain;
+    transition: background-image 2s ease-in-out;
+}
+
+
+

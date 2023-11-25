@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gamey</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+    <link rel="shortcut icon" th:href="@{/images/GameShoppingWebsitelogo.png}"
+          type="image/png">
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+
+</head>
+<body class = "vh-100 overflow-hidden">
+
+<!--<nav class="navbar fixed-top navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="#">-->
+<!--            <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"-->
+<!--            >-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"
+            >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"
+                ></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login/Create New Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/gamey/cart}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/owned}">Owned</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/explore}">Explore</a>
+                    </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Login Modal (same as before) -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login or Signup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid mx-auto d-block" alt="Gamey" style = "max-height: 70px; height: auto; width: auto;"
+                    >
+                </a>
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex flex-column align-items-center">
+                <div class="mx-auto d-block">
+                    <button type="button" class="btn btn-success">Continue</button>
+                </div>
+                <hr>
+                <div class="mx-auto d-block">
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/google-icon.svg}"  class="img-fluid" alt="Google check in" style = "max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/apple-icon.svg}"  class="img-fluid" alt="Apple check in" style = "max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/facebook-icon.svg}"  class="img-fluid" alt="Facebook check in" style = "max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/microsoft-icon.svg}"  class="img-fluid" alt="Microsoft check in" style = "max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!--<script  th:src="@{javascript/home.js}"></script>-->
+</body>
+</html>

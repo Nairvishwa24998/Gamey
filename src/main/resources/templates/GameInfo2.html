@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gamey</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+    <link rel="shortcut icon" th:href="@{/images/GameShoppingWebsitelogo.png}"
+          type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Playpen+Sans:wght@600&display=swap"
+          rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/css/styles3.css}">
+
+
+</head>
+<body class="vh-100">
+
+<!--<nav class="navbar fixed-top navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="#">-->
+<!--            <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"-->
+<!--            >-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid" alt="Gamey"
+                 style="max-height: 50px; height: auto; width: auto;"
+            >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+             aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img
+                        th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid" alt="Gamey"
+                        style="max-height: 50px; height: auto; width: auto;"
+                ></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login/Create New
+                            Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/cart}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/owned}">Owned</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/gamey/explore}">Explore</a>
+                    </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Login Modal (same as before) -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login or Signup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid mx-auto d-block" alt="Gamey"
+                         style="max-height: 70px; height: auto; width: auto;"
+                    >
+                </a>
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex flex-column align-items-center">
+                <div class="mx-auto d-block">
+                    <button type="button" class="btn btn-success">Continue</button>
+                </div>
+                <hr>
+                <div class="mx-auto d-block">
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/google-icon.svg}" class="img-fluid" alt="Google check in"
+                             style="max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/apple-icon.svg}" class="img-fluid" alt="Apple check in"
+                             style="max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/facebook-icon.svg}" class="img-fluid" alt="Facebook check in"
+                             style="max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                    <button type="button" class="btn btn-rounded">
+                        <img th:src="@{/images/microsoft-icon.svg}" class="img-fluid" alt="Microsoft check in"
+                             style="max-height: 40px; height: auto; width: auto;"
+                        >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container custom-padding">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class=row>
+                    <div class="col">
+                        <div class="card-header bg-dark">
+                            <div class="card-title">
+                                Grand Theft Auto V
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body" style="flex-direction: column">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <img src="https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg"
+                                         class="card-img-top" alt=""
+                                    >
+                                </div>
+                                <div class="col-lg-8 col-md-12 game-interest-buttons">
+                                    <button class="btn btn-dark mt-2 mb-2 mb-md-3" type="button">Add to Wishlist</button>
+                                    <button class="btn btn-dark mt-2 mb-2 mb-md-3" type="button">Add to Cart</button>
+                                    <button class="btn btn-dark mt-2 mb-2 mb-md-3" type="button">Buy</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <video style="width: 100%; padding: 5% 0%" controls autoplay muted>
+                                        <source src="https://steamcdn-a.akamaihd.net/steam/apps/256693661/movie480.mp4"
+                                                type="video/mp4">
+                                        Unable to load the video :(
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class = "game-info-font">About</p>
+                                    <p style="text-align: justify;">Rockstar Games went bigger, since their previous installment of the series. You
+                                        get the complicated and realistic world-building from Liberty City of GTA4 in
+                                        the setting of lively and diverse Los Santos, from an old fan favorite GTA San
+                                        Andreas. 561 different vehicles (including every transport you can operate) and
+                                        the amount is rising with every update. <br/>Simultaneous storytelling from
+                                        three unique perspectives: <br/>Follow Michael, ex-criminal living his life of
+                                        leisure away from the past, Franklin, a kid that seeks the better future, and
+                                        Trevor, the exact past Michael is trying to run away from. <br/>GTA Online
+                                        will provide a lot of additional challenge even for the experienced players,
+                                        coming fresh from the story mode. Now you will have other players around that
+                                        can help you just as likely as ruin your mission. Every GTA mechanic up to date
+                                        can be experienced by players through the unique customizable character, and
+                                        community content paired with the leveling system tends to keep everyone busy
+                                        and engaged.</p>
+                                </div>
+                                <div class="col-4 game-additional-info">
+                                    <p class = "game-info-font">Price:</p>
+                                    <p>1200 Rs</p>
+                                    <p class = "game-info-font">Plaforms:</p>
+                                    <ul class="no-bullet-list">
+                                        <li class="platform-icons"><img th:src="@{/images/pc.svg}" class="img-fluid"
+                                                                        alt="Gamey"></li>
+                                        <li class="platform-icons"><img th:src="@{/images/playstation2.svg}"
+                                                                        class="img-fluid" alt="Gamey">
+                                        </li>
+                                        <li class="platform-icons"><img th:src="@{/images/playstation3.svg}"
+                                                                        class="img-fluid" alt="Gamey">
+                                        </li>
+                                        <li class="platform-icons"><img th:src="@{/images/playstation4.svg}"
+                                                                        class="img-fluid" alt="Gamey">
+                                        </li>
+                                        <li class="platform-icons"><img th:src="@{/images/playstation5.svg}"
+                                                                        class="img-fluid"
+                                                                        alt="playstation5"></li>
+                                        <li class="platform-icons"><img th:src="@{/images/xbox360.svg}"
+                                                                        class="img-fluid" alt="Gamey"></li>
+                                        <li class="platform-icons"><img th:src="@{/images/xbox1.svg}" class="img-fluid"
+                                                                        alt="Gamey"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!--<script th:src="@{/js/index2.js}"></script>-->
+</body>
+</html>
