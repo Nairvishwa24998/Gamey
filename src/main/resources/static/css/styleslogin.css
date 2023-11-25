@@ -1,0 +1,57 @@
+body{
+    background: #e9e9e8  no-repeat center 60% fixed;
+    background-size: contain;
+}
+
+/* Mobile devices */
+.custom-padding {
+    padding-top: 80px;  /* adjust this value for mobile screens */
+}
+
+
+/* Even Smaller devices (tablets, 576px and up) */
+@media (min-width: 450px) {
+    .custom-padding {
+        padding-top: 90px;  /* adjust this value for small screens */
+    }
+}
+
+
+/* Small devices (tablets, 576px and up) */
+@media (min-width: 576px) {
+    .custom-padding {
+        padding-top: 90px;  /* adjust this value for small screens */
+    }
+}
+
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+    .custom-padding {
+        padding-top: 100px;  /* adjust this value for medium screens */
+    }
+}
+
+/* Large devices (large desktops, 992px and up) */
+@media (min-width: 992px) {
+    .custom-padding {
+        padding-top: 110px;  /* adjust this value for large screens */
+    }
+}
+
+/* Extra large devices (extra large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .custom-padding {
+        padding-top: 120px;  /* adjust this value for extra large screens */
+    }
+}
+
+
+.card-body{
+    display: flex;
+    justify-content: center;
+    flex-direction:column
+}
+
+.mx-auto{
+    margin-top:1rem;
+}
