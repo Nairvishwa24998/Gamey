@@ -16,19 +16,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" th:href="@{/css/styles2.css}">
-
-
 </head>
 <body class="vh-100">
-
-<!--<nav class="navbar fixed-top navbar-light bg-light">-->
-<!--    <div class="container-fluid">-->
-<!--        <a class="navbar-brand" href="#">-->
-<!--            <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"-->
-<!--            >-->
-<!--        </a>-->
-<!--    </div>-->
-<!--</nav>-->
 
 
 <nav class="navbar navbar-light bg-light fixed-top">
@@ -58,8 +47,8 @@
                         <a class="nav-link" th:href="@{/gamey/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login/Create New
-                            Account</a>
+                        <a class="nav-link" th:href="@{/gamey/login}">Login/Create New
+                            Account/Logout</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/gamey/cart}">Cart</a>
@@ -80,63 +69,6 @@
     </div>
 </nav>
 
-<!-- Login Modal (same as before) -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login or Signup</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Login Form -->
-                <a class="navbar-brand" href="#">
-                    <img th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid mx-auto d-block" alt="Gamey"
-                         style="max-height: 70px; height: auto; width: auto;"
-                    >
-                </a>
-                <form>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer d-flex flex-column align-items-center">
-                <div class="mx-auto d-block">
-                    <button type="button" class="btn btn-success">Continue</button>
-                </div>
-                <hr>
-                <div class="mx-auto d-block">
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/google-icon.svg}" class="img-fluid" alt="Google check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/apple-icon.svg}" class="img-fluid" alt="Apple check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/facebook-icon.svg}" class="img-fluid" alt="Facebook check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/microsoft-icon.svg}" class="img-fluid" alt="Microsoft check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--<div class = "container">-->
 <!--    <div>-->
@@ -148,8 +80,8 @@
 <div class="container custom-padding">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card">
-                </div>
+            <div class="card">
+            </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
             <div class="card">

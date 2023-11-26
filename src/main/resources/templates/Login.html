@@ -67,7 +67,7 @@
                     <!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/gamey/Login.html}">Login/Create New
-                            Account</a>
+                            Account/Logout</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/gamey/cart}">Cart</a>
@@ -93,15 +93,18 @@
     <div class="row" style="justify-content: center;">
         <div class="col-8 col-sm-6 col-md-4 col-lg-6">
             <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                Invalid Credentials entered!
+                <p>Invalid Credentials entered!</p>
             </div>
-            <div sec:authorize="isAuthenticated()" class="alert alert-light" role="alert" >
+            <div th:if="${displayErrorMessage}" class="alert alert-danger" role="alert">
+                <p th:text="${displayErrorMessage}"></p>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="alert alert-light" role="alert">
                 You are already logged in! Click the button below if you would like to sign out
             </div>
             <div sec:authorize="!isAuthenticated()" class="card">
                 <div class="card-header">
-                    <h5 id = "loginHeading">Login</h5>
-                    <h5 id = "signUpHeading" style="display:none">Sign Up</h5>
+                    <h5 id="loginHeading">Login</h5>
+                    <h5 id="signUpHeading" style="display:none">Sign Up</h5>
                 </div>
                 <div class="card-body">
                     <a class="card-img-top" href="#">
@@ -112,17 +115,28 @@
                     </a>
                     <form th:action="@{/gamey/login}" th:method="post">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="email" name="username"  placeholder="Email" required>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Email"
+                                   required>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password" required>
                         </div>
                         <div class="mx-auto d-block">
-                            <button type="submit" class="mx-auto d-block btn btn-success">Continue</button>
+                            <button id="loginButton" type="submit" class="mx-auto d-block btn btn-success">Login
+                            </button>
+                            <button style="display:none !important;" id="signUpButton" type="button"
+                                    class="mx-auto d-block btn btn-success" onclick="signUpUser();">Create Account
+                            </button>
                         </div>
                         <div class="mx-auto d-block">
-                            <button type="button" id = "login" class="mx-auto d-block btn btn-primary" onclick="toggleLoginSignup();">Switch to Create Account</button>
-                            <button style="display:none !important;" type="button" id = "signUp" class="mx-auto d-block btn btn-primary" onclick="toggleLoginSignup();">Switch to Login</button>
+                            <button type="button" id="login" class="mx-auto d-block btn btn-primary"
+                                    onclick="toggleLoginSignup();">Switch to Create Account
+                            </button>
+                            <button style="display:none !important;" type="button" id="signUp"
+                                    class="mx-auto d-block btn btn-primary" onclick="toggleLoginSignup();">Switch to
+                                Login
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -134,82 +148,22 @@
                                  style="max-height: 40px; height: auto; width: auto;"
                             >
                         </button>
-<!--                        <button type="button" class="btn btn-rounded">-->
-<!--                            <img th:src="@{/images/apple-icon.svg}" class="img-fluid" alt="Apple check in"-->
-<!--                                 style="max-height: 40px; height: auto; width: auto;"-->
-<!--                            >-->
-<!--                        </button>-->
-<!--                        <button type="button" class="btn btn-rounded">-->
-<!--                            <img th:src="@{/images/facebook-icon.svg}" class="img-fluid" alt="Facebook check in"-->
-<!--                                 style="max-height: 40px; height: auto; width: auto;"-->
-<!--                            >-->
-<!--                        </button>-->
+                        <!--                        <button type="button" class="btn btn-rounded">-->
+                        <!--                            <img th:src="@{/images/apple-icon.svg}" class="img-fluid" alt="Apple check in"-->
+                        <!--                                 style="max-height: 40px; height: auto; width: auto;"-->
+                        <!--                            >-->
+                        <!--                        </button>-->
+                        <!--                        <button type="button" class="btn btn-rounded">-->
+                        <!--                            <img th:src="@{/images/facebook-icon.svg}" class="img-fluid" alt="Facebook check in"-->
+                        <!--                                 style="max-height: 40px; height: auto; width: auto;"-->
+                        <!--                            >-->
+                        <!--                        </button>-->
                         <button type="button" class="btn btn-rounded">
                             <img th:src="@{/images/microsoft-icon.svg}" class="img-fluid" alt="Microsoft check in"
                                  style="max-height: 40px; height: auto; width: auto;"
                             >
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Login Modal (same as before) -->
-<div class="modal" aria-labelledby="loginModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login or Signup</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Login Form -->
-                <a class="navbar-brand" href="#">
-                    <img th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid mx-auto d-block"
-                         alt="Gamey"
-                         style="max-height: 70px; height: auto; width: auto;"
-                    >
-                </a>
-                <form>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="emai" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="passwor" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer d-flex flex-column align-items-center">
-                <div class="mx-auto d-block">
-                    <button type="button" class="btn btn-success">Continue</button>
-                </div>
-                <hr>
-                <div class="mx-auto d-block">
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/google-icon.svg}" class="img-fluid" alt="Google check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/apple-icon.svg}" class="img-fluid" alt="Apple check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/facebook-icon.svg}" class="img-fluid" alt="Facebook check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
-                    <button type="button" class="btn btn-rounded">
-                        <img th:src="@{/images/microsoft-icon.svg}" class="img-fluid" alt="Microsoft check in"
-                             style="max-height: 40px; height: auto; width: auto;"
-                        >
-                    </button>
                 </div>
             </div>
         </div>

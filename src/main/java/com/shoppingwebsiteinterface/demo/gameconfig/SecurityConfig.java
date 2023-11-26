@@ -1,14 +1,13 @@
 package com.shoppingwebsiteinterface.demo.gameconfig;
 
+import com.shoppingwebsiteinterface.demo.service.implementation.CustomUserDetailsServiceImplementation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -20,10 +19,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    private CustomUserDetailsServiceImplementation userDetailsService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/gamey/createuser").permitAll()
+                        .requestMatchers("/gamey/home", "/gamey/owned", "/gamey/cart").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/gamey/login")
@@ -36,13 +40,4 @@ public class SecurityConfig {
                 .build();
     }
 
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-
-        UserDetails admin = User.builder().username("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin);
-    }
 }
