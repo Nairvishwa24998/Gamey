@@ -124,8 +124,7 @@ public class CustomUserDetailsServiceImplementation implements UserDetailsServic
         } else {
             if (operation == 1) {
                 item = wishlistRepository.save(wishlistItem);
-            }
-            else{
+            } else {
 
             }
         }
@@ -147,16 +146,19 @@ public class CustomUserDetailsServiceImplementation implements UserDetailsServic
             String password = passwordEncoder.encode(userDTO.getPassword());
             user.setPassword(password);
             user.setAccountCreationDate(LocalDateTime.now().toString().split("\\.")[0]);
-            savedUser = userRepository.save(user);
-            return savedUser;
-        } catch (DataIntegrityViolationException e) {
             String userName = userDTO.getUsername();
             if (userRepository.findByUsername(userName) != null) {
-                throw new DataIntegrityViolationException(String.format("A User is already associated with the email - %s. Try logging in if that's yours. Else use a different email id", userName));
+                throw new PersistenceException(String.format("A User is already associated with the email - %s. Try logging in if that's yours. Else use a different email id", userName));
             }
+            savedUser = userRepository.save(user);
+            return savedUser;
+        } catch (
+                DataIntegrityViolationException e) {
+            String userName = userDTO.getUsername();
             throw new DataIntegrityViolationException("Unable to create User with given details");
 
         }
+
     }
 
     public BasicGameInfo storeGameInfo(GameInfoDto gameInfoDto) {

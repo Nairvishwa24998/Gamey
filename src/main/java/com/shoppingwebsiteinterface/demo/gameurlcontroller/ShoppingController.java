@@ -7,6 +7,7 @@ import com.shoppingwebsiteinterface.demo.model.UserInfo;
 import com.shoppingwebsiteinterface.demo.model.WishlistItem;
 import com.shoppingwebsiteinterface.demo.service.RawgCallService;
 import com.shoppingwebsiteinterface.demo.service.implementation.CustomUserDetailsServiceImplementation;
+import jakarta.persistence.PersistenceException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -99,6 +100,10 @@ public class ShoppingController {
         } catch (DataIntegrityViolationException ex) {
             session.setAttribute("errorMessage", ex.getMessage());
             return ResponseEntity.internalServerError().body("User creation failed");
+        }
+        catch (PersistenceException ex) {
+            session.setAttribute("errorMessage", ex.getMessage());
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 

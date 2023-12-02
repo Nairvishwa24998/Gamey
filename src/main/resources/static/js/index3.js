@@ -52,6 +52,7 @@ function signUpUser(){
                             if (!response.ok) {
                                    window.location.href = './login';
                             }
+                            if (response.ok){
                                     document.getElementById("signUpButton").type = "submit";
                                     const alert = document.createElement('div');
                                     alert.className = 'alert alert-success alert-dismissible fade show';
@@ -62,7 +63,7 @@ function signUpUser(){
                                                 const bsAlert = new bootstrap.Alert(alert); // Bootstrap 5 alert instance
                                                 bsAlert.close(); // Closes the alert
                                             }, 5000);
-
+}
                         })
                         .catch(error => {
                                 console.error('Error:', error);
