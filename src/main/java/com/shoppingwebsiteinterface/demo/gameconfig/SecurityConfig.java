@@ -35,7 +35,13 @@ public class SecurityConfig {
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .permitAll())
-                .logout(logout -> logout.permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/gamey/logout")  // URL to trigger logout
+                        .logoutSuccessUrl("/gamey/login") // Redirect back to the login page
+                        .invalidateHttpSession(true) // Invalidate the session
+                        .deleteCookies("JSESSIONID") // Optionally delete session cookies
+                        .permitAll()
+                )
                 .csrf(csrf -> csrf.disable())
                 .build();
     }

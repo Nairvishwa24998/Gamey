@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Ordered")
-public class OrderedItem {
+public class OwnedItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,10 +15,12 @@ public class OrderedItem {
     @JoinColumn(name = "user_id")
     private UserInfo user;
 
-    private Long gameId;
+    @ManyToOne
+    @JoinColumn(name= "game_id")
+    private BasicGameInfo basicGameInfo;
 
     private Integer quantity;
-    private LocalDateTime purchaseDate;
+    private String purchaseDate;
 
     public Long getId() {
         return id;
@@ -36,13 +38,6 @@ public class OrderedItem {
         this.user = user;
     }
 
-    public Long getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Long gameId) {
-        this.gameId = gameId;
-    }
 
     public Integer getQuantity() {
         return quantity;
@@ -50,13 +45,25 @@ public class OrderedItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+
     }
 
-    public LocalDateTime getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDateTime purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
+
+    public BasicGameInfo getBasicGameInfo() {
+        return basicGameInfo;
+    }
+
+    public void setBasicGameInfo(BasicGameInfo basicGameInfo) {
+        this.basicGameInfo = basicGameInfo;
+    }
 }
+
+
+

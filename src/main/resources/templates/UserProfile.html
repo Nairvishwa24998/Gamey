@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gamey</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+    <link rel="shortcut icon" th:href="@{/images/GameShoppingWebsitelogo.png}"
+          type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Playpen+Sans:wght@600&display=swap"
+          rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/css/styles3.css}">
+
+
+</head>
+<body class="vh-100">
+
+<!--<nav class="navbar fixed-top navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="#">-->
+<!--            <img th:src="@{/images/GameShoppingWebsitelogo.png}"  class="img-fluid" alt="Gamey" style = "max-height: 50px; height: auto; width: auto;"-->
+<!--            >-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid" alt="Gamey"
+                 style="max-height: 50px; height: auto; width: auto;"
+            >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+             aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"><img
+                        th:src="@{/images/GameShoppingWebsitelogo.png}" class="img-fluid" alt="Gamey"
+                        style="max-height: 50px; height: auto; width: auto;"
+                ></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/login}">Login/Create New
+                            Account/Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/cart}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gamey/owned}">Owned</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/gamey/explore}">Explore</a>
+                    </li>
+                </ul>
+                <form class="d-flex mt-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container custom-padding">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class=row>
+                    <div class="col">
+                        <div class="card-header bg-dark">
+                            <div class="card-title">
+                                <div sec:authentication="name"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body" style="flex-direction: column">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <img th:src="@{/images/userloggedin.svg}" class="img-fluid" alt="Gamey"
+                                         style="max-height: 50px; height: auto; width: auto;"
+                                    >
+                                </div>
+                                <div class="col-lg-4 col-md-12 game-interest-buttons">
+                                    <p class="game-info-font">Username: </p>
+                                    <p  class="game-info-font">Date of Creation: </p>
+                                    <p  class="game-info-font">Time of Creation: </p>
+                                </div>
+                                <div class="col-lg-4 col-md-12 game-interest-buttons">
+                                    <p th:text="${userInformation.username}" class="game-info-font"></p>
+                                    <p th:text="${#strings.substringBefore(userInformation.accountCreationDate, 'T')}" class="game-info-font"></p>
+                                    <p th:text="${#strings.substringAfter(userInformation.accountCreationDate, 'T')}" class="game-info-font"></p>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="game-info-font">Wish-List</p>
+                                </div>
+                                <div class="col-6 game-additional-info">
+                                    <p class="game-info-font">Owned</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!--<script th:src="@{/js/indexGameInfo.js}"></script>-->
+</body>
+</html>

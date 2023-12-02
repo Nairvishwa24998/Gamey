@@ -92,14 +92,19 @@
 <div class="container custom-padding">
     <div class="row" style="justify-content: center;">
         <div class="col-8 col-sm-6 col-md-4 col-lg-6">
-            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+            <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>Invalid Credentials entered!</p>
             </div>
-            <div th:if="${displayErrorMessage}" class="alert alert-danger" role="alert">
+            <div th:if="${displayErrorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p th:text="${displayErrorMessage}"></p>
             </div>
+            <div id="alert-container"></div>
             <div sec:authorize="isAuthenticated()" class="alert alert-light" role="alert">
                 You are already logged in! Click the button below if you would like to sign out
+                <form action="/gamey/logout" method="post">
+                    <button type="submit"  class="mx-auto d-block btn btn-dark">Logout
+                    </button>
+                </form>
             </div>
             <div sec:authorize="!isAuthenticated()" class="card">
                 <div class="card-header">
@@ -123,7 +128,7 @@
                                    placeholder="Password" required>
                         </div>
                         <div class="mx-auto d-block">
-                            <button id="loginButton" type="submit" class="mx-auto d-block btn btn-success">Login
+                            <button id="loginButton" type="submit"  class="mx-auto d-block btn btn-success">Login
                             </button>
                             <button style="display:none !important;" id="signUpButton" type="button"
                                     class="mx-auto d-block btn btn-success" onclick="signUpUser();">Create Account

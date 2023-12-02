@@ -14,7 +14,9 @@ public class WishlistItem {
     @JoinColumn(name = "user_id")
     private UserInfo user;
 
-    private Long gameId;
+    @ManyToOne
+    @JoinColumn(name= "game_id")
+    private BasicGameInfo basicGameInfo;
 
     public Long getId() {
         return id;
@@ -32,11 +34,11 @@ public class WishlistItem {
         this.user = user;
     }
 
-    public Long getGameId() {
-        return gameId;
+    public BasicGameInfo getBasicGameInfo() {
+        return basicGameInfo;
     }
 
-    public void setGameId(Long gameId) {
-        this.gameId = gameId;
+    public void setBasicGameInfo(BasicGameInfo basicGameInfo) {
+        this.basicGameInfo = basicGameInfo;
     }
 }

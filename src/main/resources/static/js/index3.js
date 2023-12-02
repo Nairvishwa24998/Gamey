@@ -1,3 +1,7 @@
+
+
+
+
 function toggleLoginSignup() {
     let loginHeading = document.getElementById('loginHeading');
     let signUpHeading = document.getElementById('signUpHeading');
@@ -27,13 +31,8 @@ function toggleLoginSignup() {
 }
 
 
-function logInUser(){
-    document.getElementById('loginButton').type = "submit";
 
-}
 function signUpUser(){
-    document.getElementById('loginButton').type = "button";
-    document.getElementById('signUpButton').type = "button";
       const userInfo = {
                    username: null,
                    password: null
@@ -53,7 +52,17 @@ function signUpUser(){
                             if (!response.ok) {
                                    window.location.href = './login';
                             }
-                            document.getElementById('signUpButton').type = "submit";
+                                    document.getElementById("signUpButton").type = "submit";
+                                    const alert = document.createElement('div');
+                                    alert.className = 'alert alert-success alert-dismissible fade show';
+                                    alert.role = 'alert';
+                                    alert.innerHTML = 'User created successfully!';
+                                    document.getElementById('alert-container').appendChild(alert);
+                                    setTimeout(() => {
+                                                const bsAlert = new bootstrap.Alert(alert); // Bootstrap 5 alert instance
+                                                bsAlert.close(); // Closes the alert
+                                            }, 5000);
+
                         })
                         .catch(error => {
                                 console.error('Error:', error);
@@ -62,3 +71,12 @@ function signUpUser(){
 
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const dismissibleAlerts = document.querySelectorAll('.alert-dismissible');
+    dismissibleAlerts.forEach(alert => {
+        setTimeout(() => {
+            const bsAlert = new bootstrap.Alert(alert); // Bootstrap 5 alert instance
+            bsAlert.close(); // Closes the alert
+        }, 5000); // 2000 milliseconds = 2 seconds
+    });
+});
