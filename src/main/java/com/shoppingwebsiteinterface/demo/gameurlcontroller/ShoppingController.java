@@ -3,6 +3,7 @@ package com.shoppingwebsiteinterface.demo.gameurlcontroller;
 import com.shoppingwebsiteinterface.demo.dto.CreateUserDTO;
 import com.shoppingwebsiteinterface.demo.dto.GameInfoDto;
 import com.shoppingwebsiteinterface.demo.model.BasicGameInfo;
+import com.shoppingwebsiteinterface.demo.model.CartItem;
 import com.shoppingwebsiteinterface.demo.model.UserInfo;
 import com.shoppingwebsiteinterface.demo.model.WishlistItem;
 import com.shoppingwebsiteinterface.demo.service.RawgCallService;
@@ -16,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/gamey")
@@ -117,6 +120,15 @@ public class ShoppingController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/buygame/{rawgid}")
+    ResponseEntity<String> buyGame(@PathVariable String rawgid, @PathVariable int operation, HttpSession session) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        BasicGameInfo basicGameInfo = customUserDetailsServiceImplementation.getGameByRawgId(rawgid);
+        customUserDetailsServiceImplementation.modifyCart(userName, basicGameInfo, operation);
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/modifywishlist/{rawgid}/{operation}")
     ResponseEntity<String> modifyWishList(@PathVariable String rawgid, @PathVariable int operation, HttpSession session) {
@@ -132,7 +144,11 @@ public class ShoppingController {
 
 
     @GetMapping("/cart")
-    public String cart() {
+    public String cart(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        List<CartItem> cartItems = customUserDetailsServiceImplementation.getAll(userName);
+        model.addAttribute("cartItems", cartItems);
         return "Cart";
     }
 

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CustomUserDetailsServiceImplementation implements UserDetailsService {
@@ -81,8 +82,7 @@ public class CustomUserDetailsServiceImplementation implements UserDetailsServic
             CartItem cartItem = new CartItem();
             cartItem.setUser(userInfo);
             cartItem.setBasicGameInfo(basicGameInfo);
-            cartItem = modifyQuantity(cartItem, operation);
-            return cartRepository.save(cartItem);
+            return modifyQuantity(cartItem, operation);
         } catch (PersistenceException ex) {
             throw new PersistenceException("Unable to add item to Card!");
         }
@@ -100,17 +100,26 @@ public class CustomUserDetailsServiceImplementation implements UserDetailsServic
     }
 
     private CartItem modifyQuantity(CartItem cartItem, int operation) {
+        CartItem cartItemStored = null;
         if (cartRepository.findByBasicGameInfoAndUser(cartItem.getBasicGameInfo(), cartItem.getUser()) != null) {
-            cartItem = cartRepository.findByBasicGameInfoAndUser(cartItem.getBasicGameInfo(), cartItem.getUser());
-            cartItem.setQuantity(cartItem.getQuantity() + operation);
+            if(operation==-1 && cartRepository.findByBasicGameInfoAndUser(cartItem.getBasicGameInfo(), cartItem.getUser()).getQuantity()==1){
+                cartItem = cartRepository.findByBasicGameInfoAndUser(cartItem.getBasicGameInfo(), cartItem.getUser());
+                cartRepository.delete(cartItem);
+            }
+            else{
+                cartItem = cartRepository.findByBasicGameInfoAndUser(cartItem.getBasicGameInfo(), cartItem.getUser());
+                cartItem.setQuantity(cartItem.getQuantity() + operation);
+                cartItemStored = cartRepository.save(cartItem);
+            }
         } else {
             if (operation == 1) {
                 cartItem.setQuantity(1);
+                cartItemStored = cartRepository.save(cartItem);
             } else {
-                cartItem.setQuantity(0);
+//                cartItem.setQuantity(0);
             }
         }
-        return cartItem;
+        return cartItemStored;
     }
 
     private WishlistItem modifyAndAddWishListItem(WishlistItem wishlistItem, int operation) {
@@ -181,6 +190,12 @@ public class CustomUserDetailsServiceImplementation implements UserDetailsServic
         basicGameInfo.setReleased(gameInfoDto.getReleased());
         basicGameInfo.setOtherImages(gameInfoDto.getOtherImages());
         return basicGameInfo;
+    }
+
+
+    public List<CartItem> getAll(String userName){
+        UserInfo userInfo = userRepository.findByUsername(userName);
+        return cartRepository.findByUser(userInfo);
     }
 
 }

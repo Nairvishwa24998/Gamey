@@ -55,6 +55,15 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <div sec:authorize="isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/gamey/userprofile}">
+                                <img th:src="@{/images/userloggedin.svg}" class="img-fluid" alt="Gamey"
+                                     style="max-height: 50px; height: auto; width: auto;"
+                                >
+                            </a>
+                        </li>
+                    </div>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/gamey/home}">Home</a>
                     </li>

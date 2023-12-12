@@ -3,7 +3,7 @@ const url = 'https://api.rawg.io/api/games?page_size=72&key=0191586e29d04fa09769
 const urlDescription = 'https://api.rawg.io/api/games/${id}?key=0191586e29d04fa09769937e35accbbb';
 const urlPreview = 'https://api.rawg.io/api/games/${id}/movies?key=0191586e29d04fa09769937e35accbbb'
 
-let maxGameCount = 30;
+//let maxGameCount = 30;
 
 const platformImageMapper = {
     playstation5:"/images/playstation5.svg",
@@ -58,10 +58,13 @@ function getOtherImages(otherImagesList){
 }
 
 
-const elements = document.querySelectorAll('.card');
-  elements.forEach(element => {
-    element.innerHTML = '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/QCE3HQTLUzWt6q0R6b" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/fborfw-comic-official-for-better-or-worse-QCE3HQTLUzWt6q0R6b"></a></p>'
-  });
+//const elements = document.querySelectorAll('.card');
+let loadScreen = document.querySelector('.row');
+loadScreen.innerHTML = '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/QCE3HQTLUzWt6q0R6b" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/fborfw-comic-official-for-better-or-worse-QCE3HQTLUzWt6q0R6b"></a></p>';
+
+//  elements.forEach(element => {
+//    element.innerHTML = '<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/QCE3HQTLUzWt6q0R6b" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/fborfw-comic-official-for-better-or-worse-QCE3HQTLUzWt6q0R6b"></a></p>'
+//  });
 let publishers = ["ubisoft-entertainment", "electronic-arts", "2k-games","microsoft-studios", "valve", "rockstar-games"]
 // Make the fetch request
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -74,8 +77,11 @@ fetch(url)
         return response.json();
     })
     .then(data => {
+            let loadScreen = document.querySelector('.row');
+            loadScreen.innerHTML = '';
             const games = data.results;
-            const elements = document.querySelectorAll('.card');
+            const maxGameCount = games.length;
+//            const elements = document.querySelectorAll('.card');
             for (let i = 0; i < maxGameCount; i ++){
             //GetAll GetAll GetAll  GetAll     GetAll            GetAll       GetClips GetId
             //GameId Name,  Rating, Platforms, BackgroundImage,  ReleaseDate  Preview, Description
@@ -94,7 +100,6 @@ fetch(url)
                     platforms: null,
                     description: null
                 };
-
                 gameInfo.id = games[i].id;
                 gameInfo.name = games[i].name;
                 gameInfo.rating = games[i].rating;
@@ -107,22 +112,25 @@ fetch(url)
                 const rating = games[i].rating;
                 let gameId = games[i].id;
 //                <a href = "gamey/gameinfo/${gameId}">
-                elements[i].innerHTML = `<a><div class="card-image"><img src="${backgroundImage}"class="card-img-top" alt="" id="${cardImageId}"></div><div class="card-body"><ul class = "no-bullet-list"><li class="gameList"><p class="card-title" id="${cardTitleId}">${nameOriginal}</p></li><li class="gameList"><p class="card-title" id="${cardRatingId}">${rating}</p></li></ul></div></a>`;
+                const newDiv = document.createElement('div');
+                newDiv.classList.add('col-12', 'col-sm-6', 'col-md-4', 'col-lg-3', 'col-xl-2');
+                newDiv.innerHTML = `<div class="card"><a><div class="card-image"><img src="${backgroundImage}"class="card-img-top" alt="" id="${cardImageId}"></div><div class="card-body"><ul class = "no-bullet-list"><li class="gameList"><p class="card-title" id="${cardTitleId}">${nameOriginal}</p></li><li class="gameList"><p class="card-title" id="${cardRatingId}">${rating}</p></li></ul></div></a></div>`;
+                loadScreen.appendChild(newDiv);
                 console.log(gameInfo);
-                elements[i].addEventListener('click',()=>{
+                newDiv.addEventListener('click',()=>{
                     fetch('/gamey/gameinfo', {
-                        method: 'POST', // Specifies the method to be POST
+                        method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json', // Sets the content type to JSON
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(gameInfo) // Sends the gameInfo object as a JSON string in the request body
+                        body: JSON.stringify(gameInfo)
                     })
                     .then(response => {
-                        // Checking if the response from the server is ok (status in the range 200-299)
+
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
                         }
-                       window.location.href = './gameinfo'; // Parsing the JSON response body
+                       window.location.href = './gameinfo';
                     })
 
                 })
